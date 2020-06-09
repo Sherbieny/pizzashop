@@ -28,7 +28,7 @@
                                             alt="image">
                                     </div>
                                     <div class="col-md-8 col-sm-8">
-                                        <h5><a href="/product/{{$product}}">{{$product->name}}</a></h5><br>
+                                        <h5><a href="/product/{{$product->id}}">{{$product->name}}</a></h5><br>
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12">
                                                 <p>

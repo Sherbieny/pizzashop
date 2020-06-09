@@ -7,7 +7,7 @@
             <h1>{{$product->name}}</h1>
         </div>
         <div class="col-md-8 col-sm-8">
-            <img style="width: 100%" src="{{ asset('images/'.str_replace(' ','_',strtolower($product->name)).'.jpg') }}"
+            <img style="width: 50%" src="{{ asset('images/'.str_replace(' ','_',strtolower($product->name)).'.jpg') }}"
                 alt="image">
         </div>
     </div>

@@ -6,9 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header text-center">
-                    <span>{{ $count }} Products </span>
-                    <a class="float-left" href="/product/import">Get Products</a>
-                    <a class="float-right" href="/product/create">Add New Product</a>
+                    <span>Menu</span>
                 </div>
 
                 <div class="card-body">

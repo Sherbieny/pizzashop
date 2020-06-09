@@ -15,10 +15,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::where('id', '>', 0)->orderBy('updated_at', 'desc')->paginate(10);
-        $count = Product::where('id', '>', 0)->get()->count();
         return view('products.index', [
-            'products' => $products,
-            'count' => $count
+            'products' => $products
         ]);
     }
 

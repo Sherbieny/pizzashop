@@ -39,13 +39,12 @@
                                         </div>
                                         <div class=" row">
                                             <div class="col-md-12 col-sm-12">
-                                                {{dd($product)}}
                                                 <p>
                                                     <small>last modified
-                                                        {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", $product->updated_at))->diffForHumans()}}</small>
+                                                        {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($product->updated_at)))->diffForHumans()}}</small>
                                                     <br>
                                                     <small>added
-                                                        {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", $product->created_at))->diffForHumans() }}</small>
+                                                        {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($product->created_at)))->diffForHumans() }}</small>
                                                 </p>
                                             </div>
                                         </div>

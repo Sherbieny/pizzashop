@@ -21,10 +21,10 @@
     </div>
     <small>last modified
         {{dd($product)}}
-        {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", $product->updated_at))->diffForHumans()}}</small>
+        {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($product->updated_at)))->diffForHumans()}}</small>
     <br>
     <small>added
-        {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", $product->created_at))->diffForHumans() }}</small>
+        {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($product->created_at)))->diffForHumans() }}</small>
     <hr>
     <a href="/product/{{$product->id}}/edit" class="btn btn-default">Edit</a>
     {!!Form::open(['action' => ['ProductController@destroy',$product->id],'method' => 'POST', 'class' =>

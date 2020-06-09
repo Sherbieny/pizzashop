@@ -39,6 +39,7 @@
                                         </div>
                                         <div class=" row">
                                             <div class="col-md-12 col-sm-12">
+                                                {{dd($product)}}
                                                 <p>
                                                     <small>last modified
                                                         {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", $product->updated_at))->diffForHumans()}}</small>

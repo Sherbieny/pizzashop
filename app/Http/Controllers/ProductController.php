@@ -14,7 +14,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::where('id', '>', 0)->orderBy('modified_at', 'desc')->paginate(10);
+        $count = Product::where('id', '>', 0)->get()->count();
+        return view('products.index', [
+            'products' => $products,
+            'count' => $count
+        ]);
     }
 
     /**
@@ -46,7 +51,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('products.show')->with('product', $product);
     }
 
     /**

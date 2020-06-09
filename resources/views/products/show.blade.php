@@ -31,12 +31,7 @@
     <small>added
         {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($product->created_at)))->diffForHumans() }}</small>
     <hr>
-    <a href="/product/{{$product->id}}/edit" class="btn btn-default">Edit</a>
-    {!!Form::open(['action' => ['ProductController@destroy',$product->id],'method' => 'POST', 'class' =>
-    'float-right'])!!}
-    {{Form::hidden('_method','DELETE')}}
-    {{Form::submit('Delete',['class' => 'btn btn-danger'])}}
-    {!!Form::close()!!}
+    <a href="/product/{{$product->id}}/add" class="btn btn-primary">Add to Cart</a>
 </div>
 
 @endsection

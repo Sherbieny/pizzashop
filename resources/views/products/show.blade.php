@@ -2,10 +2,16 @@
 
 @section('content')
 <div class="container">
-    <h1>{{$product->name}}</h1>
-    <img style="width: 100%" src="{{ asset('images/'.str_replace(' ','_',strtolower($product->name)).'.jpg') }}"
-        alt="image">
-    <br><br>
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <h1>{{$product->name}}</h1>
+        </div>
+        <div class="col-md-8 col-sm-8">
+            <img style="width: 100%" src="{{ asset('images/'.str_replace(' ','_',strtolower($product->name)).'.jpg') }}"
+                alt="image">
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col-md-4 col-sm-4">
             <p>

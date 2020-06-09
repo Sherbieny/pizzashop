@@ -25,8 +25,9 @@
                             <div class="well">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-4">
-                                        <img style="width: 50%"
-                                            src="{{ asset('images/'.strtolower($product->name).'.jpg') }}" alt="image">
+                                        <img style="width: 70%"
+                                            src="{{ asset('images/'.str_replace(' ','_',strtolower($product->name)).'.jpg') }}"
+                                            alt="image">
                                     </div>
                                     <div class="col-md-8 col-sm-8">
                                         <h5><a href="/product/{{$product}}">{{$product->name}}</a></h5><br>

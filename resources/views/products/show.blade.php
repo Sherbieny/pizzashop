@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
     <h1>Product Details</h1>
-    {{-- <img style="width: 50%" src="/storage/cover_images/{{$message->cover_image}}"> --}}
+    <img style="width: 100%" src="{{ asset('images/'.str_replace(' ','_',strtolower($product->name)).'.jpg') }}"
+        alt="image">
     <br><br>
     <h5>{{$product->name}}</h5>
     <div class="row">

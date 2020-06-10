@@ -16,7 +16,7 @@ class Item extends Model
      */
     public function product()
     {
-        return $this->hasOne('App\Product');
+        return $this->hasOne('App\Product', 'id', 'product_id');
     }
 
     /**
@@ -26,6 +26,6 @@ class Item extends Model
      */
     public function cart()
     {
-        return $this->belongsTo('App\Cart');
+        return $this->belongsTo('App\Cart', 'id', 'cart_id');
     }
 }

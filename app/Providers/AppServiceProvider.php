@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
@@ -30,7 +31,9 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Blade::directive('dollar', function ($amount) {
-            return "<?php echo '$' . number_format($amount, 2); ?>";
+            $exchangeRates = new ExchangeRate();
+            $value = $exchangeRates->convert($amount, 'EUR', 'USD');
+            return "<?php echo '$' . number_format($value, 2); ?>";
         });
         Blade::directive('euro', function ($amount) {
             return "<?php echo '€' . number_format($amount, 2); ?>";

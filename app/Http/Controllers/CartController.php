@@ -46,7 +46,7 @@ class CartController extends Controller
         $user = Auth::guest() === false ? User::findOrFail(Auth::id()) : null;
         //Get or create cart
         $cartId = (int) Session::get('cart_id');
-        $cart = Cart::firstOrNew(['id' => $cartId]);
+        $cart = ($cartId > 0) ? Cart::firstOrFail($cartId) : new Cart();
         //determine if cart is new
         $newCart = $cart->id === null;
         //if new cart, and user is logged in add user info and update session

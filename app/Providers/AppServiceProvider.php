@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo '$' . number_format($amount, 2); ?>";
         });
         Blade::directive('euro', function ($amount) {
-            return "<?php echo '&euro' . number_format($amount, 2); ?>";
+            return "<?php echo '€' . number_format($amount, 2); ?>";
         });
     }
 }

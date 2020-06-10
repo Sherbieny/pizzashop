@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -25,8 +26,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         URL::forceScheme('https');
         Schema::defaultStringLength(191);
+
+        Blade::directive('dollar', function ($amount) {
+            return "<?php echo '$' . number_format($amount, 2); ?>";
+        });
+        Blade::directive('euro', function ($amount) {
+            return "<?php echo '&euro' . number_format($amount, 2); ?>";
+        });
     }
 }

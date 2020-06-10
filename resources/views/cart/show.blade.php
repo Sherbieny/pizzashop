@@ -5,6 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                <div class="card-header text-center">
+                    @if($cart->qty > 0)
+                    <span>Your cart has {{$cart->qty}} items with a total of @dollar($cart->total) | @euro($cart->total)
+                    </span>
+                    @endif
+                </div>
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">

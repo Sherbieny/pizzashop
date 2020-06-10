@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Item;
+use App\Product;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -28,14 +33,50 @@ class CartController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Add product to cart item and cart item to cart
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $productId
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function add($productId)
     {
-        //
+        //Get the product
+        $product = Product::findOrFail($productId);
+        //Get user if logged in
+        $user = Auth::guest() === false ? User::findOrFail(Auth::id()) : null;
+        //Get or create cart
+        $cartId = (int) Session::get('cart_id');
+        $cart = Cart::firstOrNew(['id' => $cartId]);
+        //determine if cart is new
+        $newCart = $cart->id === null;
+        //if new cart, and user is logged in add user info and update session
+        if ($newCart && $user) {
+            $cart->customer_id = $user->id;
+            $cart->customer_email = $user->email;
+            $customerNames = explode(' ', $user->name) !== false ? explode(' ', $user->name) : [];
+            $cart->customer_firstname = !empty($customerNames) ? $customerNames[0] : null;
+            $cart->customer_lastname = count($customerNames) > 1 ? $customerNames[1] : null;
+
+            //save cart to properly populate it with item below
+            $cart->save();
+        }
+        //get or create item and add product
+        $item = Item::firstOrCreate([
+            'product_id' => $productId,
+            'cart_id' => $cartId
+        ]);
+
+        //add or update qty and cost        
+        $item->qty = (int) $item->qty + 1;
+        $item->cost = $item->qty * $product->price;
+
+        //save item
+        $item->save();
+
+        //add item to cart
+        $cart->addItem($item);
+
+        return back()->with('success', 'Product added to cart');
     }
 
     /**

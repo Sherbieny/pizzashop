@@ -22,6 +22,8 @@ Route::group(['middleware' => ['web']], function () {
 
     //product core actions
     Route::resource('product', 'ProductController');
+    //custom routes
+    Route::get('/cart/{id}/add', 'CartController@add')->name('add');
 });
 
 Auth::routes();

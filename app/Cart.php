@@ -16,7 +16,7 @@ class Cart extends Model
     {
         $qty = 0;
         $total = 0;
-        $items = $this->items();
+        $items = $this->getItems();
 
         if (empty($items)) $this;
 
@@ -36,9 +36,20 @@ class Cart extends Model
      *      
      * @return Item[]|null
      */
-    public function items()
+    public function getItems()
     {
         return Item::where('cart_id', $this->id)->get();
+    }
+
+
+    /**
+     * Get cart items
+     *      
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function items()
+    {
+        return $this->hasMany('App\Item', 'cart_id', 'id');
     }
 
     /**

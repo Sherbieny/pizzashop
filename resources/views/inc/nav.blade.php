@@ -52,10 +52,10 @@
                 @endguest
                 <li class="nav-item">
                     <a class="nav-link" href="">{{ __('Cart') }}</a>
-                    @if (Session::has('item_count') && Session::get('item_count') > 0)
+                    {{-- @if (Session::has('item_count') && Session::get('item_count') > 0)
                     {{dd(Session::get('item_count'))}}
                     <span>{{Session::get('item_count')}}</span>
-                    @endif
+                    @endif --}}
                 </li>
             </ul>
         </div>

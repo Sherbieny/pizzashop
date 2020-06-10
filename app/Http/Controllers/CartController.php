@@ -47,9 +47,9 @@ class CartController extends Controller
         //Get or create cart
         $cartId = Session::get('cart_id');
 
-        dd([
+        dump([
             'id' => $cartId
-        ])
+        ]);
 
         $cart = ($cartId > 0) ? Cart::findOrFail($cartId) : new Cart();
         //determine if cart is new

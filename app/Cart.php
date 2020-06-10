@@ -38,7 +38,8 @@ class Cart extends Model
      */
     public function items()
     {
-        return Item::where('cart_id', $this->id)->get();
+        return $this->hasMany('App\Item', 'cart_id', 'id');
+        //return Item::where('cart_id', $this->id)->get();
     }
 
     /**

@@ -45,7 +45,12 @@ class CartController extends Controller
         //Get user if logged in
         $user = Auth::guest() === false ? User::findOrFail(Auth::id()) : null;
         //Get or create cart
-        $cartId = (int) Session::get('cart_id');
+        $cartId = Session::get('cart_id');
+
+        dd([
+            'id' => $cartId
+        ])
+
         $cart = ($cartId > 0) ? Cart::findOrFail($cartId) : new Cart();
         //determine if cart is new
         $newCart = $cart->id === null;

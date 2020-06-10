@@ -24,7 +24,6 @@ class CreateCartsTable extends Migration
             $table->string('customer_email')->nullable();
             $table->string('customer_firstname')->nullable();
             $table->string('customer_lastname')->nullable();
-            $table->string('customer_firstname')->nullable();
             $table->timestamps();
         });
     }

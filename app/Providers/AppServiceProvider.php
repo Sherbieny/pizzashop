@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::directive('dollar', function ($amount) {
             $exchangeRates = new ExchangeRate();
-            $value = $exchangeRates->convert($amount, 'EUR', 'USD');
+            $value = $exchangeRates->convert((int) $amount, 'EUR', 'USD');
             return "<?php echo '$' . number_format($value, 2); ?>";
         });
         Blade::directive('euro', function ($amount) {

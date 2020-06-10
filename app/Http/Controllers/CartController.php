@@ -19,28 +19,6 @@ class CartController extends Controller
      */
     public function index()
     {
-        //Get or create cart
-        $cartId = (int) session('cart_id');
-        $cart = ($cartId > 0) ? Cart::findOrFail($cartId) : new Cart();
-        //determine if cart is new
-        $newCart = $cart->id === null;
-        //Get user if logged in
-        $user = Auth::guest() === false ? User::findOrFail(Auth::id()) : null;
-        if ($newCart && $user) {
-            $cart->customer_id = $user->id;
-            $cart->customer_email = $user->email;
-            $customerNames = explode(' ', $user->name) !== false ? explode(' ', $user->name) : [];
-            $cart->customer_firstname = !empty($customerNames) ? $customerNames[0] : null;
-            $cart->customer_lastname = count($customerNames) > 1 ? $customerNames[1] : null;
-
-            //save cart to properly populate it with item below
-            $cart->save();
-
-            //update session with cart id if new cart is created
-            session(['cart_id' => $cart->id]);
-        }
-
-        return view('cart')->with('cart', $cart);
     }
 
     /**
@@ -112,12 +90,13 @@ class CartController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cart  $cart
+     * @param  int  $cartId
      * @return \Illuminate\Http\Response
      */
-    public function show(Cart $cart)
+    public function show($cartId)
     {
-        //
+        $cart = Cart::findOrFail($cartId);
+        return view('cart.show')->with('cart', $cart);
     }
 
     /**

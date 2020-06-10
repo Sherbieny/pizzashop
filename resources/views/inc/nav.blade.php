@@ -52,7 +52,7 @@
                 @endguest
                 @if (Session::has('item_count'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('cart') }}">{{ __('Cart ') }}
+                    <a class="nav-link" href="/cart/{{session('cart_id')}}">{{ __('Cart ') }}
                         <span>{{session('item_count')}}</span>
                     </a>
                 </li>

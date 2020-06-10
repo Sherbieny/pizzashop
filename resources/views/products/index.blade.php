@@ -48,9 +48,7 @@
                                                 </p>
                                             </div>
                                             <div class="col-md-6 col-sm-6">
-
-                                                <a href="/cart/{{$product->id}}/add" class="btn btn-info btn-lg"><span
-                                                        class="glyphicon glyphicon-shopping-cart"></span>Add to
+                                                <a href="/cart/{{$product->id}}/add" class="btn btn-primary">Add to
                                                     Cart</a>
                                             </div>
                                         </div>

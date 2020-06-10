@@ -31,7 +31,8 @@
     <small>added
         {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($product->created_at)))->diffForHumans() }}</small>
     <hr>
-    <a href="/cart/{{$product->id}}/add" class="btn btn-primary">Add to Cart</a>
+    <a href="/cart/{{$product->id}}/add" class="btn btn-info btn-lg"><span
+            class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>
 </div>
 
 @endsection

@@ -45,11 +45,7 @@ class CartController extends Controller
         //Get user if logged in
         $user = Auth::guest() === false ? User::findOrFail(Auth::id()) : null;
         //Get or create cart
-        $cartId = Session::get('cart_id');
-
-        dump([
-            'id' => $cartId
-        ]);
+        $cartId = (int) session('cart_id');
 
         $cart = ($cartId > 0) ? Cart::findOrFail($cartId) : new Cart();
         //determine if cart is new
@@ -66,7 +62,7 @@ class CartController extends Controller
             $cart->save();
 
             //update session with cart id if new cart is created
-            Session::push('cart_id', $cart->id);
+            session(['cart_id' => $cart->id]);
         }
 
 
@@ -86,8 +82,8 @@ class CartController extends Controller
         //collect totals and save
         $cart->collectTotals()->save();
 
-        //update session cart item count to view in frontend
-        Session::push('item_count', $cart->qty);
+        //update session cart item count to view in frontend        
+        session(['item_count' => $cart->qty]);
 
         return back()->with('success', 'Product added to cart');
     }

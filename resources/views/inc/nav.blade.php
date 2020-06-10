@@ -50,6 +50,7 @@
                     </div>
                 </li>
                 @endguest
+                {{dd(Session::get('item_count'))}}
                 <li class="nav-item">
                     <a class="nav-link" href="">{{ __('Cart') }}</a>
                     @if (Session::has('item_count'))

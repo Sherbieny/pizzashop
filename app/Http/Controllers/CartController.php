@@ -78,8 +78,8 @@ class CartController extends Controller
         //save item
         $item->save();
 
-        //add item to cart
-        $cart->addItem($item);
+        //collect totals and save
+        $cart->collectTotals()->save();
 
         return back()->with('success', 'Product added to cart');
     }

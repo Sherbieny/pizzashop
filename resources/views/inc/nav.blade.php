@@ -52,6 +52,9 @@
                 @endguest
                 <li class="nav-item">
                     <a class="nav-link" href="">{{ __('Cart') }}</a>
+                    @if (Session::has('item_count'))
+                    <span>{{Session::get('item_count')}}</span>
+                    @endif
                 </li>
             </ul>
         </div>

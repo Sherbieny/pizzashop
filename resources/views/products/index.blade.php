@@ -38,7 +38,7 @@
                                             </div>
                                         </div>
                                         <div class=" row">
-                                            <div class="col-md-12 col-sm-12">
+                                            <div class="col-md-6 col-sm-6">
                                                 <p>
                                                     <small>last modified
                                                         {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($product->updated_at)))->diffForHumans()}}</small>
@@ -46,6 +46,10 @@
                                                     <small>added
                                                         {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($product->created_at)))->diffForHumans() }}</small>
                                                 </p>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <a href="/cart/{{$product->id}}/add" class="btn btn-primary">Add to
+                                                    Cart</a>
                                             </div>
                                         </div>
 

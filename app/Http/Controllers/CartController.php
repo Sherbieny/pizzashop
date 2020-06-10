@@ -81,6 +81,9 @@ class CartController extends Controller
         //collect totals and save
         $cart->collectTotals()->save();
 
+        //update session cart item count to view in frontend
+        Session::push('item_count', $cart->qty);
+
         return back()->with('success', 'Product added to cart');
     }
 

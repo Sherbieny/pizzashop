@@ -35,4 +35,5 @@
             class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>
 </div>
 
+
 @endsection

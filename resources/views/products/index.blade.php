@@ -48,6 +48,7 @@
                                                 </p>
                                             </div>
                                             <div class="col-md-6 col-sm-6">
+
                                                 <a href="/cart/{{$product->id}}/add" class="btn btn-info btn-lg"><span
                                                         class="glyphicon glyphicon-shopping-cart"></span>Add to
                                                     Cart</a>

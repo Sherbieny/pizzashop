@@ -59,7 +59,12 @@ class CartController extends Controller
 
             //save cart to properly populate it with item below
             $cart->save();
+
+            //update session with cart id if new cart is created
+            Session::push('cart_id', $cart->id);
         }
+
+
         //get or create item and add product
         $item = Item::firstOrCreate([
             'product_id' => $productId,

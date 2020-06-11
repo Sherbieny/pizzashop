@@ -33,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::directive('dollar', function ($amount) {
             $rate = Rate::latest()->first();
+            dump($rate->eurtousd);
+            dump($amount);
             $amount = (float) $amount * ((float) $rate->eurtousd);
             return "<?php echo '$' . number_format($amount, 2); ?>";
         });

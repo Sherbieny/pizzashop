@@ -99,9 +99,10 @@ class CartController extends Controller
         $cart = Cart::findOrFail($cartId);
         $rate = Rate::latest()->first();
         $usdTotal = (float) $rate->eurtousd * (float) $cart->total;
+        $total = '€ ' . number_format($cart->total, 2) . ' |  $ ' . number_format($usdTotal, 2);
         return view('cart.show', [
             'cart' => $cart,
-            'total' => "<?php echo '€' . number_format($cart->total, 2) . ' | $' . number_format($usdTotal, 2); ?>"
+            'total' => $total
         ]);
     }
 

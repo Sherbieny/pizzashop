@@ -13,9 +13,13 @@
                         {{ session('status') }}
                     </div>
                     @endif
-
+                    @guest
+                    Login or Register to view orders history
+                    @else
                     You are logged in!
-                    <a class="nav-link" href="{{ url('product') }}">{{ __('Go to Menu') }}</a>
+                    @endguest
+
+                    <a class="btn btn-primary" href="{{ url('product') }}">{{ __('Go to Menu') }}</a>
                 </div>
             </div>
         </div>

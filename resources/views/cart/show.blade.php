@@ -61,11 +61,20 @@
                                             </div>
                                         </div>
 
+
                                     </div>
                                 </div>
 
                             </div>
                             @endforeach
+                            <hr>
+                            <div class="well">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <a href="/cart/{{$cart->id}}/place" class="btn btn-primary">Place Order</a>
+                                    </div>
+                                </div>
+                            </div>
                             @else
                             <h5>Cart is empty</h5>
                             @endif

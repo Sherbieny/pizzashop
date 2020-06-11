@@ -16,7 +16,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('product') }}">{{ __('Menu') }}</a>
-                    <a class="nav-link" href="{{ url('cart') }}">{{ __('orders') }}</a>
                 </li>
             </ul>
 
@@ -40,6 +39,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url('cart') }}">{{ __('Orders') }}</a>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}

@@ -21,7 +21,10 @@ class CartController extends Controller
     public function index()
     {
         if (Auth::guest() === false) {
-            $orders = Cart::where('customer_id', '=', Auth::user()->id)->orderBy('updated_at', 'desc')->paginate(10);
+            $orders = Cart::where([
+                ['customer_id', '=', Auth::user()->id],
+                ['is_active', '=', false]
+            ])->orderBy('updated_at', 'desc')->paginate(10);
 
             return view('carts.index')->with('orders', $orders);
         } else {

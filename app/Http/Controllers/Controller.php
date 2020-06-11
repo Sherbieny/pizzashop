@@ -26,11 +26,13 @@ class Controller extends BaseController
      */
     private function updateRates()
     {
-        dump('sammer');
+        if (session('rate') != null) return;
+        dump('sameeeeer');
         $rate = Rate::where('created_at', '>=', new DateTime('today'))->first();
         if ($rate === null) {
             $rate = new Rate();
             $rate->updateRates();
+            session(['rate' => $rate->eurtousd]);
         }
     }
 }

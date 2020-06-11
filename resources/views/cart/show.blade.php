@@ -57,6 +57,7 @@
                                         </div>
                                         @endif
                                         <div class=" row">
+                                            @if($cart->is_active)
                                             <div class="col-md-6 col-sm-6">
                                                 <p>
                                                     <small>last modified
@@ -66,6 +67,17 @@
                                                         {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($item->created_at)))->diffForHumans() }}</small>
                                                 </p>
                                             </div>
+                                            @else
+                                            <div class="col-md-6 col-sm-6">
+                                                <p>
+                                                    <small>ordered
+                                                        {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($item->updated_at)))->diffForHumans()}}</small>
+                                                    <br>
+                                                    <small>created
+                                                        {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($item->created_at)))->diffForHumans() }}</small>
+                                                </p>
+                                            </div>
+                                            @endif
                                             @if($cart->is_active)
                                             <div class="col-md-6 col-sm-6">
                                                 <a href="/cart/{{$item->id}}/remove" class="btn btn-danger">Remove</a>

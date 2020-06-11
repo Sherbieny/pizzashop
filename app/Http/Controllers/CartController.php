@@ -96,7 +96,6 @@ class CartController extends Controller
      */
     public function show($cartId)
     {
-        "<?php echo '€' . number_format($amount, 2) . ' | $' . number_format($usdAmount, 2); ?>";
         $cart = Cart::findOrFail($cartId);
         $rate = Rate::latest()->first();
         $usdTotal = (float) $rate->eurtousd * (float) $cart->total;

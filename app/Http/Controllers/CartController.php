@@ -123,8 +123,17 @@ class CartController extends Controller
             'last_name' => 'required',
             'address' => 'required'
         ]);
-        dump($request);
-        dd($cart);
+
+        $cart->customer_email = $request->input('email');
+        $cart->customer_firstname = $request->input('email');
+        $cart->customer_lastname = $request->input('first_name');
+        $cart->address = $request->input('address');
+        //disable cart so it wont get called again after order is placed
+        $cart->is_active = false;
+        //remove current cart from session to create new one for new requests
+        session(['cart_id' => null]);
+
+        return view('home')->with('success', 'Order placed .. Thank you!');
     }
 
     /**
@@ -160,10 +169,13 @@ class CartController extends Controller
             $customerNames = explode(' ', $user->name) !== false ? explode(' ', $user->name) : [];
             $cart->customer_firstname = !empty($customerNames) ? $customerNames[0] : null;
             $cart->customer_lastname = count($customerNames) > 1 ? $customerNames[1] : null;
-
             //save cart to properly populate it with items
             $cart->save();
-
+            //update session with cart id if new cart is created
+            session(['cart_id' => $cart->id]);
+        } elseif ($newCart && !$user) {
+            //save cart to properly populate it with items
+            $cart->save();
             //update session with cart id if new cart is created
             session(['cart_id' => $cart->id]);
         }

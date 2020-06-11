@@ -82,16 +82,16 @@
                                                 'method' =>
                                                 'post']) !!}
                                                 <div class="form-group">
-                                                    {{Form::email('email', $value = $cart->customer_email ?? '', ['class' => 'form-control','placeholder' => 'email'])}}
+                                                    {{Form::email('email', $value = $cart->customer_email ?? '', ['class' => 'form-control','placeholder' => 'email', 'required', $cart->customer_email ? 'readonly': ''])}}
                                                 </div>
                                                 <div class="form-group">
-                                                    {{Form::text('first_name', $value = $cart->customer_firstname ?? '', ['class' => 'form-control','placeholder' => 'first name'])}}
+                                                    {{Form::text('first_name', $value = $cart->customer_firstname ?? '', ['class' => 'form-control','placeholder' => 'first name', 'required'])}}
                                                 </div>
                                                 <div class="form-group">
-                                                    {{Form::text('last_name', $value = $cart->customer_lastname ?? '', ['class' => 'form-control','placeholder' => 'last name'])}}
+                                                    {{Form::text('last_name', $value = $cart->customer_lastname ?? '', ['class' => 'form-control','placeholder' => 'last name', 'required'])}}
                                                 </div>
                                                 <div class="form-group">
-                                                    {{Form::text('address', $value = $cart->address ?? '', ['class' => 'form-control','placeholder' => 'addresss'])}}
+                                                    {{Form::text('address', $value = $cart->address ?? '', ['class' => 'form-control','placeholder' => 'addresss', 'required'])}}
                                                 </div>
                                                 {{Form::hidden('_method','PUT')}}
                                                 {{Form::submit('Submit',['class' => 'btn btn-primary'])}}

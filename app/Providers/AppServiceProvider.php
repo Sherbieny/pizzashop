@@ -31,10 +31,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Blade::directive('dollar', function ($amount) {
-            $exchangeRates = new ExchangeRate();
-            $x = (int) $amount * 100;
-            $value = $exchangeRates->convert($x, 'EUR', 'USD');
-            return "<?php echo '$' . number_format($value, 2); ?>";
+            return "<?php echo '$' . number_format($amount, 2); ?>";
         });
         Blade::directive('euro', function ($amount) {
             return "<?php echo '€' . number_format($amount, 2); ?>";

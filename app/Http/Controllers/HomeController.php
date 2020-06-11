@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Rate;
+use DateTime;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +16,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->updateRates();
     }
 
     /**
@@ -24,5 +27,16 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    /**
+     * Update rates if a day passed
+     *      
+     * @return void
+     */
+    private function updateRates()
+    {
+        $rate = Rate::where('created_at', '>=', new DateTime('today'));
+        dd($rate);
     }
 }

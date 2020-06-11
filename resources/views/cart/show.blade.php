@@ -8,7 +8,13 @@
                 <div class="card-header text-center">
                     @if($cart->qty > 0)
                     <span>Your cart has {{$cart->qty}} items with a total of {{$total}}
+                    </span><br>
+                    @if($cart->is_active === false)
+                    <span>
+                        <strong>Address:</strong>
+                        {{$cart->address}}
                     </span>
+                    @endif
                     @endif
                 </div>
                 <div class="card-body">
@@ -46,16 +52,6 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        @if($cart->is_active === false)
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12">
-                                                <p>
-                                                    <strong>Address:</strong>
-                                                    {{$cart->address}}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        @endif
                                         <div class=" row">
                                             @if($cart->is_active)
                                             <div class="col-md-6 col-sm-6">

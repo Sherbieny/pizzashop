@@ -26,7 +26,7 @@ class CartController extends Controller
                 ['is_active', '=', false]
             ])->orderBy('updated_at', 'desc')->paginate(10);
 
-            return view('carts.index')->with('carts', $carts);
+            return view('cart.index')->with('carts', $carts);
         } else {
             return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
         }

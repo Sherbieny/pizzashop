@@ -33,10 +33,16 @@
                                         <h5><a href="/product/{{$item->product_id}}">{{$item->product->name}}</a></h5>
                                         <br>
                                         <div class="row">
-                                            <div class="col-md-12 col-sm-12">
+                                            <div class="col-md-6 col-sm-6">
                                                 <p>
                                                     <strong>Cost:</strong>
                                                     {{$item->cost}}
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <p>
+                                                    <strong>Qty:</strong>
+                                                    {{$item->qty}}
                                                 </p>
                                             </div>
                                         </div>

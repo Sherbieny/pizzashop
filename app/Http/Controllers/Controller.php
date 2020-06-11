@@ -30,6 +30,7 @@ class Controller extends BaseController
         dump(session('rate'));
         $rate = Rate::where('created_at', '>=', new DateTime('today'))->first();
         if ($rate === null) {
+            dump('creating rate');
             $rate = new Rate();
             $rate->updateRates();
             session(['rate' => $rate->eurtousd]);

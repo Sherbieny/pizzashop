@@ -117,6 +117,12 @@ class CartController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
+        $this->validate($request, [
+            'email' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'address' => 'required'
+        ]);
         dump($request);
         dd($cart);
     }

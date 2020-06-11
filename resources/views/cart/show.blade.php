@@ -71,7 +71,8 @@
                             <div class="well">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12">
-                                        <a href="/cart/{{$cart->id}}/place" class="btn btn-primary">Place Order</a>
+                                        <a href="/cart/{{$cart->id}}/place" style="width: 100%"
+                                            class="btn btn-primary btn-block">Place Order</a>
                                     </div>
                                 </div>
                             </div>

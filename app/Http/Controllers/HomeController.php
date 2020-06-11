@@ -37,6 +37,10 @@ class HomeController extends Controller
     private function updateRates()
     {
         $rate = Rate::where('created_at', '>=', new DateTime('today'));
-        dd($rate);
+        if ($rate === null) {
+            dd('sameer');
+        } else {
+            dd('moneer');
+        }
     }
 }

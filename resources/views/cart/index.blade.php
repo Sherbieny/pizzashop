@@ -27,8 +27,13 @@
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12">
                                                 <p>
-                                                    <strong>Total:</strong>
-                                                    {{$cart->total}}
+                                                    <strong>Totals:</strong>
+                                                    @php
+                                                    $usdTotal = (float) $rate * (float) $cart->total;
+                                                    $total = '€ ' . number_format($cart->total, 2) . ' | $ ' .
+                                                    number_format($usdTotal, 2);
+                                                    @endphp
+                                                    {{$total}}
                                                 </p>
                                             </div>
                                         </div>

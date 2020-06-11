@@ -25,8 +25,11 @@ class CartController extends Controller
                 ['customer_id', '=', Auth::user()->id],
                 ['is_active', '=', false]
             ])->orderBy('updated_at', 'desc')->paginate(10);
-
-            return view('cart.index')->with('carts', $carts);
+            $rate = Rate::latest()->first();
+            return view('cart.index', [
+                'carts' => $carts,
+                'rate' => $rate->eurtousd
+            ]);
         } else {
             return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
         }

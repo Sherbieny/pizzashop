@@ -76,15 +76,24 @@
                                     </div>
                                     <div class="panel-group">
                                         <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <!-- Editing the HREF from original -->
-                                                    title
-                                                </h4>
-                                            </div>
                                             <div id="collapse" class="panel-collapse collapse">
-                                                <div class="panel-body">body</div>
-                                                <div class="panel-footer">footer</div>
+                                                <h4>Please fill the form to submit your order</h4>
+                                                {!! Form::open(['action' => 'CartController@place', 'method' =>
+                                                'post']) !!}
+                                                <div class="form-group">
+                                                    {{Form::email('email', $value = $cart->customer_email ?? '', ['class' => 'form-control','placeholder' => 'email'])}}
+                                                </div>
+                                                <div class="form-group">
+                                                    {{Form::text('first_name', $value = $cart->customer_firstname ?? '', ['class' => 'form-control','placeholder' => 'first name'])}}
+                                                </div>
+                                                <div class="form-group">
+                                                    {{Form::text('last_name', $value = $cart->last_name ?? '', ['class' => 'form-control','placeholder' => 'last name'])}}
+                                                </div>
+                                                <div class="form-group">
+                                                    {{Form::text('address', $value = $cart->address ?? '', ['class' => 'form-control','placeholder' => 'addresss'])}}
+                                                </div>
+                                                {{Form::submit('Submit',['class' => 'btn btn-primary'])}}
+                                                {!! Form::close() !!}
                                             </div>
                                         </div>
                                     </div>

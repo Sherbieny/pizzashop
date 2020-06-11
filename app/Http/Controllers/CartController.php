@@ -117,7 +117,8 @@ class CartController extends Controller
      */
     public function place(Request $request, Cart $cart)
     {
-        //
+        dump($request);
+        dd($cart);
     }
 
     /**

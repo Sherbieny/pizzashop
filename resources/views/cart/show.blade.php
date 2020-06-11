@@ -78,7 +78,7 @@
                                         <div class="panel panel-default">
                                             <div id="collapse" class="panel-collapse collapse">
                                                 <h4>Please fill the form to submit your order</h4>
-                                                {!! Form::open(['action' => 'CartController@place', 'method' =>
+                                                {!! Form::open(['action' => 'CartController@update', 'method' =>
                                                 'post']) !!}
                                                 <div class="form-group">
                                                     {{Form::email('email', $value = $cart->customer_email ?? '', ['class' => 'form-control','placeholder' => 'email'])}}

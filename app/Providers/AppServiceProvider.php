@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\HomeController;
 use App\Rate;
 use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
 use Illuminate\Support\Facades\Blade;
@@ -30,5 +31,9 @@ class AppServiceProvider extends ServiceProvider
     {
         URL::forceScheme('https');
         Schema::defaultStringLength(191);
+
+        $this->app->bind(HomeController::class, function ($app) {
+            return HomeController::updateRates();
+        });
     }
 }

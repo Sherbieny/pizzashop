@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->updateRates();
+        //$this->updateRates();
     }
 
     /**
@@ -34,7 +34,7 @@ class HomeController extends Controller
      *      
      * @return void
      */
-    private function updateRates()
+    public static function updateRates()
     {
         $rate = Rate::where('created_at', '>=', new DateTime('today'))->first();
         if ($rate === null) {

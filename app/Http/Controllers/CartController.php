@@ -20,6 +20,13 @@ class CartController extends Controller
      */
     public function index()
     {
+        if (Auth::guest() === false) {
+            $orders = Cart::where('customer_id', '=', Auth::user()->id)->orderBy('updated_at', 'desc')->paginate(10);
+
+            return view('carts.index')->with('orders', $orders);
+        } else {
+            return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
+        }
     }
 
     /**
@@ -130,6 +137,7 @@ class CartController extends Controller
         $cart->address = $request->input('address');
         //disable cart so it wont get called again after order is placed
         $cart->is_active = false;
+        $cart->save();
         //remove current cart from session to create new one for new requests
         session(['cart_id' => null]);
 

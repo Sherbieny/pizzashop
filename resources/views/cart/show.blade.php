@@ -7,6 +7,7 @@
             <div class="card">
                 <div class="card-header text-center">
                     @if($cart->qty > 0)
+                    @dump($cart->total)
                     <span>Your cart has {{$cart->qty}} items with a total of @money($cart->total)
                     </span>
                     @endif

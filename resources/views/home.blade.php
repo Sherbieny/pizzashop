@@ -15,6 +15,7 @@
                     @endif
 
                     You are logged in!
+                    <a class="nav-link" href="{{ url('product') }}">{{ __('Go to Menu') }}</a>
                 </div>
             </div>
         </div>

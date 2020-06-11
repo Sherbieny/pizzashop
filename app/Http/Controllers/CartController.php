@@ -133,7 +133,7 @@ class CartController extends Controller
         //remove current cart from session to create new one for new requests
         session(['cart_id' => null]);
 
-        return view('product')->with('success', 'Order placed .. Thank you!');
+        return redirect()->route('product')->with('success', 'Order placed .. Thank you!');
     }
 
     /**

@@ -56,9 +56,11 @@
                                                         {{ Carbon\Carbon::parse(date("Y-m-d H:i:s", strtotime($item->created_at)))->diffForHumans() }}</small>
                                                 </p>
                                             </div>
+                                            @if($cart->is_active)
                                             <div class="col-md-6 col-sm-6">
                                                 <a href="/cart/{{$item->id}}/remove" class="btn btn-danger">Remove</a>
                                             </div>
+                                            @endif
                                         </div>
 
 
@@ -67,6 +69,7 @@
 
                             </div>
                             @endforeach
+                            @if($cart->is_active)
                             <hr>
                             <div class="well">
                                 <div class="row">
@@ -101,6 +104,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         </div>
                         @else
                         <h5>Cart is empty</h5>

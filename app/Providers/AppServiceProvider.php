@@ -30,14 +30,5 @@ class AppServiceProvider extends ServiceProvider
     {
         URL::forceScheme('https');
         Schema::defaultStringLength(191);
-
-        Blade::directive('money', function ($amount) {
-            $rate = Rate::latest()->first();
-            dump($rate->eurtousd);
-            dump($amount);
-            $usdAmount = (float) $amount * ((float) $rate->eurtousd);
-            dump($usdAmount);
-            return "<?php echo '€' . number_format($amount, 2) . ' | $' . number_format($usdAmount, 2); ?>";
-        });
     }
 }

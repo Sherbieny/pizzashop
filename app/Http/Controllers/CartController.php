@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cart;
 use App\Item;
 use App\Product;
+use App\Rate;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -95,8 +96,14 @@ class CartController extends Controller
      */
     public function show($cartId)
     {
+        "<?php echo '€' . number_format($amount, 2) . ' | $' . number_format($usdAmount, 2); ?>";
         $cart = Cart::findOrFail($cartId);
-        return view('cart.show')->with('cart', $cart);
+        $rate = Rate::latest()->first();
+        $usdTotal = (float) $rate->eurtousd * (float) $cart->total;
+        return view('cart.show', [
+            'cart' => $cart,
+            'total' => "<?php echo '€' . number_format($cart->total, 2) . ' | $' . number_format($usdTotal, 2); ?>"
+        ]);
     }
 
     /**

@@ -16,19 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', 'HomeController@index')->name('home');
 
+//product actions
+Route::resource('product', 'ProductController');
+Route::get('/product', 'ProductController@index')->name('product');
+
+//cart actions
+Route::resource('cart', 'CartController');
+Route::get('/cart', 'CartController@index')->name('cart');
+Route::get('/cart/{id}/add', 'CartController@add')->name('add');
+Route::get('/cart/{id}/remove', 'CartController@remove')->name('remove');
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
-
-    //product actions
-    Route::resource('product', 'ProductController');
-    Route::get('/product', 'ProductController@index')->name('product');
-
-    //cart actions
-    Route::resource('cart', 'CartController');
-    Route::get('/cart', 'CartController@index')->name('cart');
-    Route::get('/cart/{id}/add', 'CartController@add')->name('add');
-    Route::get('/cart/{id}/remove', 'CartController@remove')->name('remove');
 });
 
 Auth::routes();

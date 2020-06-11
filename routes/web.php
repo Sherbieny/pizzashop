@@ -22,6 +22,7 @@ Route::group(['middleware' => ['web']], function () {
 
     //product actions
     Route::resource('product', 'ProductController');
+    Route::get('/product', 'ProductController@index')->name('product');
 
     //cart actions
     Route::resource('cart', 'CartController');

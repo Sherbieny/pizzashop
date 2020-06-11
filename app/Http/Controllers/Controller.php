@@ -27,14 +27,15 @@ class Controller extends BaseController
      */
     private function updateRates()
     {
-        if (session('rate') != null) return;
+        //if (session('rate') != null) return;
         dump(Session::get('rate'));
         $rate = Rate::where('created_at', '>=', new DateTime('today'))->first();
         if ($rate === null) {
             dump('creating rate');
             $rate = new Rate();
             $rate->updateRates();
-            session(['rate' => $rate->eurtousd]);
+            Session::put('rate', $rate->eurtousd);
+            Session::save();
         }
     }
 }

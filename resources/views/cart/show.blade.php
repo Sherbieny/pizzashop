@@ -7,7 +7,6 @@
             <div class="card">
                 <div class="card-header text-center">
                     @if($cart->qty > 0)
-                    @dump($cart->total)
                     <span>Your cart has {{$cart->qty}} items with a total of {{$total}}
                     </span>
                     @endif
@@ -52,7 +51,7 @@
                                                 </p>
                                             </div>
                                             <div class="col-md-6 col-sm-6">
-                                                <a href="/cart/{{$item->id}}/add" class="btn btn-primary">Remove</a>
+                                                <a href="/cart/{{$item->id}}/remove" class="btn btn-danger">Remove</a>
                                             </div>
                                         </div>
 

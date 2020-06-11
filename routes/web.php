@@ -24,6 +24,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('product', 'ProductController');
     //custom routes
     Route::get('/cart/{id}/add', 'CartController@add')->name('add');
+    Route::get('/cart/{id}/remove', 'CartController@remove')->name('remove');
 
     //cart actions
     Route::resource('cart', 'CartController');

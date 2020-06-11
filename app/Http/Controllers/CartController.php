@@ -42,29 +42,8 @@ class CartController extends Controller
     {
         //Get the product
         $product = Product::findOrFail($productId);
-        //Get user if logged in
-        $user = Auth::guest() === false ? User::findOrFail(Auth::id()) : null;
-        //Get or create cart
-        $cartId = (int) session('cart_id');
-
-        $cart = ($cartId > 0) ? Cart::findOrFail($cartId) : new Cart();
-        //determine if cart is new
-        $newCart = $cart->id === null;
-        //if new cart, and user is logged in add user info and update session
-        if ($newCart && $user) {
-            $cart->customer_id = $user->id;
-            $cart->customer_email = $user->email;
-            $customerNames = explode(' ', $user->name) !== false ? explode(' ', $user->name) : [];
-            $cart->customer_firstname = !empty($customerNames) ? $customerNames[0] : null;
-            $cart->customer_lastname = count($customerNames) > 1 ? $customerNames[1] : null;
-
-            //save cart to properly populate it with item below
-            $cart->save();
-
-            //update session with cart id if new cart is created
-            session(['cart_id' => $cart->id]);
-        }
-
+        //Get cart
+        $cart = $this->getCart();
 
         //get or create item and add product
         $item = Item::firstOrCreate([
@@ -109,12 +88,24 @@ class CartController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cart  $cart
+     * @param  int  $itemId
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cart $cart)
+    public function remove($itemId)
     {
-        //
+        //Get the cart
+        $cart = $this->getCart();
+        //get item
+        $item = Item::findOrFail($itemId);
+        //delete item
+        $item->delete();
+        //collect totals and save
+        $cart->collectTotals()->save();
+
+        //update session cart item count to view in frontend        
+        session(['item_count' => $cart->qty]);
+
+        return back()->with('success', 'Product removed from cart');
     }
 
     /**
@@ -138,5 +129,38 @@ class CartController extends Controller
     public function destroy(Cart $cart)
     {
         //
+    }
+
+    /**
+     * Get current cart or create one
+     *      
+     * @return Cart
+     */
+    private function getCart()
+    {
+        //Get or create cart
+        $cartId = (int) session('cart_id');
+        //Get user if logged in
+        $user = Auth::guest() === false ? User::findOrFail(Auth::id()) : null;
+
+        $cart = ($cartId > 0) ? Cart::findOrFail($cartId) : new Cart();
+        //determine if cart is new
+        $newCart = $cart->id === null;
+        //if new cart, and user is logged in add user info and update session
+        if ($newCart && $user) {
+            $cart->customer_id = $user->id;
+            $cart->customer_email = $user->email;
+            $customerNames = explode(' ', $user->name) !== false ? explode(' ', $user->name) : [];
+            $cart->customer_firstname = !empty($customerNames) ? $customerNames[0] : null;
+            $cart->customer_lastname = count($customerNames) > 1 ? $customerNames[1] : null;
+
+            //save cart to properly populate it with items
+            $cart->save();
+
+            //update session with cart id if new cart is created
+            session(['cart_id' => $cart->id]);
+        }
+
+        return $cart;
     }
 }

@@ -27,7 +27,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('cart', 'CartController');
     Route::get('/cart/{id}/add', 'CartController@add')->name('add');
     Route::get('/cart/{id}/remove', 'CartController@remove')->name('remove');
-    Route::get('/cart/place', 'HomeController@place')->name('place');
+    Route::get('/cart/place', 'CartController@place')->name('place');
 });
 
 Auth::routes();

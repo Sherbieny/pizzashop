@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Rate;
-use DateTime;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,19 +24,5 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
-    }
-
-    /**
-     * Update rates if a day passed
-     *      
-     * @return void
-     */
-    public static function updateRates()
-    {
-        $rate = Rate::where('created_at', '>=', new DateTime('today'))->first();
-        if ($rate === null) {
-            $rate = new Rate();
-            $rate->updateRates();
-        }
     }
 }

@@ -71,8 +71,7 @@
                             <div class="well">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12">
-                                        <a data-toggle="collapse" data-target="#collapse"
-                                            href="/cart/{{$cart->id}}/place" style="width: 100%"
+                                        <a data-toggle="collapse" data-target="#collapse" href="#" style="width: 100%"
                                             class="btn btn-primary btn-block">Place Order</a>
                                     </div>
                                     <div class="panel-group">

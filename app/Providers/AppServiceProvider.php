@@ -36,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
             dump($rate->eurtousd);
             dump($amount);
             $usdAmount = (float) $amount * ((float) $rate->eurtousd);
+            dump($usdAmount);
             return "<?php echo '€' . number_format($amount, 2) . ' | $' . number_format($usdAmount, 2); ?>";
         });
     }

@@ -27,7 +27,7 @@ class Controller extends BaseController
     private function updateRates()
     {
         if (session('rate') != null) return;
-        dump('sameeeeer');
+        dump(session('rate'));
         $rate = Rate::where('created_at', '>=', new DateTime('today'))->first();
         if ($rate === null) {
             $rate = new Rate();

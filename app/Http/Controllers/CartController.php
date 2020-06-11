@@ -115,7 +115,7 @@ class CartController extends Controller
      * @param  \App\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cart $cart)
+    public function place(Request $request, Cart $cart)
     {
         //
     }

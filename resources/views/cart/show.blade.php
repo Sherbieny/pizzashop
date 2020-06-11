@@ -74,17 +74,32 @@
                                         <a href="/cart/{{$cart->id}}/place" style="width: 100%"
                                             class="btn btn-primary btn-block">Place Order</a>
                                     </div>
+                                    <div class="panel-group">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <!-- Editing the HREF from original -->
+                                                    title
+                                                </h4>
+                                            </div>
+                                            <div id="collapse" class="panel-collapse collapse">
+                                                <div class="panel-body">body</div>
+                                                <div class="panel-footer">footer</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            @else
-                            <h5>Cart is empty</h5>
-                            @endif
                         </div>
+                        @else
+                        <h5>Cart is empty</h5>
+                        @endif
                     </div>
-
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

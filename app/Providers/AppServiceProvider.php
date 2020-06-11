@@ -31,15 +31,12 @@ class AppServiceProvider extends ServiceProvider
         URL::forceScheme('https');
         Schema::defaultStringLength(191);
 
-        Blade::directive('dollar', function ($amount) {
+        Blade::directive('money', function ($amount) {
             $rate = Rate::latest()->first();
             dump($rate->eurtousd);
             dump($amount);
-            $amount = (float) $amount * ((float) $rate->eurtousd);
-            return "<?php echo '$' . number_format($amount, 2); ?>";
-        });
-        Blade::directive('euro', function ($amount) {
-            return "<?php echo '€' . number_format($amount, 2); ?>";
+            $usdAmount = (float) $amount * ((float) $rate->eurtousd);
+            return "<?php echo '€' . number_format($amount, 2) . ' | $' . number_format($usdAmount, 2); ?>";
         });
     }
 }

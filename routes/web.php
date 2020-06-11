@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
-    //product core actions
+    //product actions
     Route::resource('product', 'ProductController');
 
     //cart actions

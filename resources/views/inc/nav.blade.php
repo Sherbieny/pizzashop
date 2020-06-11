@@ -16,6 +16,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('product') }}">{{ __('Menu') }}</a>
+                    <a class="nav-link" href="{{ url('cart') }}">{{ __('orders') }}</a>
                 </li>
             </ul>
 

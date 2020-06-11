@@ -26,6 +26,7 @@ Route::group(['middleware' => ['web']], function () {
 
     //cart actions
     Route::resource('cart', 'CartController');
+    Route::get('/cart', 'CartController@index')->name('cart');
     Route::get('/cart/{id}/add', 'CartController@add')->name('add');
     Route::get('/cart/{id}/remove', 'CartController@remove')->name('remove');
 });

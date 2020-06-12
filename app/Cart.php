@@ -16,7 +16,7 @@ class Cart extends Model
     {
         $qty = 0;
         $total = 0;
-        $items = $this->getItems();
+        $items = $this->items;
 
         if (empty($items)) $this;
 
@@ -30,17 +30,6 @@ class Cart extends Model
 
         return $this;
     }
-
-    /**
-     * Get cart items
-     *      
-     * @return Item[]|null
-     */
-    public function getItems()
-    {
-        return Item::where('cart_id', $this->id)->get();
-    }
-
 
     /**
      * Get cart items

@@ -90,5 +90,7 @@ class LogSuccessfulLogin
         $guestCart->delete();
         //add old cart id to session
         session(['cart_id' => $oldCart->id]);
+        //update cart count
+        session(['item_count' => $oldCart->count]);
     }
 }

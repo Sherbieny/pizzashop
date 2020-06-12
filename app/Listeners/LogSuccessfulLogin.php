@@ -60,7 +60,7 @@ class LogSuccessfulLogin
         if ($oldCart === null) return;
 
         //Merge carts
-        $newItems = $guestCart->getItems();
+        $newItems = $guestCart->items;
         //if guest cart is empty, remove it from session to load old cart on next add to cart
         if (empty($newItems)) {
             Log::info('cart is empty');
@@ -77,7 +77,7 @@ class LogSuccessfulLogin
             Log::info('item found or created');
             //add or update qty and cost        
             $item->qty = (int) $item->qty + 1;
-            $item->cost = $item->qty * $item->product()->price;
+            $item->cost = $item->qty * $item->product->price;
 
             //save item
             $item->save();

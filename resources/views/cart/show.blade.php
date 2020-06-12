@@ -13,11 +13,11 @@
                     @else
                     <span>Your order has {{$cart->qty}} items with a total of {{$total}}
                     </span><br>
-                    @endif
                     <span>
                         <strong>Address:</strong>
                         {{$cart->address}}
                     </span>
+                    @endif
                     @endif
                 </div>
                 <div class="card-body">

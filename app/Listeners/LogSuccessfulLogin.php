@@ -44,22 +44,16 @@ class LogSuccessfulLogin
      */
     private function resolveCart($user)
     {
-        Log::info(__METHOD__);
         //Get active guest cart id from session if it exists
         $guestCartId = (int) session('cart_id');
-        Log::info('getting guest cart id from session = ' . $guestCartId);
-        Log::info('user id = ' . $user->id);
         //Get old active cart if it exists
         $oldCart = Cart::where([
             ['customer_id', '=', $user->id],
             ['is_active', '=', true]
         ])->first();
-        Log::info('checking if old cart is not null');
         if ($oldCart !== null) {
-            Log::info('old cart exists');
             //if old cart exists, it should be assigned to session if it has items
             if ($oldCart->qty > 0) {
-                Log::info('setting old cart data');
                 session(['cart_id' => $oldCart->id]);
                 session(['item_count' => $oldCart->qty]);
             }
@@ -68,9 +62,7 @@ class LogSuccessfulLogin
         if ($guestCartId == 0) return;
         //Get guest cart
         $guestCart = Cart::findOrFail($guestCartId);
-        Log::info('guest cart loaded');
 
-        Log::info('loading old cart');
         //if user has no old active cart, set customer info and return
         if ($oldCart === null) {
             $guestCart->customer_id = $user->id;
@@ -82,24 +74,20 @@ class LogSuccessfulLogin
             $guestCart->save();
             return;
         }
-        Log::info('old cart loaded');
 
         //Merge carts
         $newItems = $guestCart->items;
         //if guest cart is empty, remove it from session to load old cart on next add to cart
         if (empty($newItems)) {
-            Log::info('guest cart is empty');
             session(['cart_id' => null]);
             return;
         }
-        Log::info('guest cart is not empty');
         foreach ($newItems as $newItem) {
             //get or create item and add product
             $item = Item::firstOrCreate([
                 'product_id' => $newItem->product_id,
                 'cart_id' => $oldCart->id
             ]);
-            Log::info('item found or created');
             //add or update qty and cost        
             $item->qty = (int) $item->qty + 1;
             $item->cost = $item->qty * $item->product->price;
@@ -108,17 +96,13 @@ class LogSuccessfulLogin
             $item->save();
         }
 
-        Log::info('saving cart');
         //collect totals and save
         $oldCart->collectTotals()->save();
-        //delete guest cart
-        Log::info('old cart saved');
+        //delete guest cart        
         $guestCart->delete();
-        Log::info('guest cart deleted');
         //add old cart id to session
         session(['cart_id' => $oldCart->id]);
         //update cart count
         session(['item_count' => $oldCart->qty]);
-        Log::info('session updated');
     }
 }

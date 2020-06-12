@@ -54,7 +54,7 @@
                 @if (session('cart_id') != null)
                 <li class="nav-item">
                     <a class="nav-link" href="/cart/{{session('cart_id')}}">{{ __('Cart ') }}
-                        <span>{{session('item_count')}}</span>
+                        <span class="badge">{{session('item_count')}}</span>
                     </a>
                 </li>
                 @endif

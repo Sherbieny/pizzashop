@@ -45,7 +45,6 @@ class LogSuccessfulLogin
     {
         //Get active guest cart id from session if it exists
         $guestCartId = (int) session('cart_id');
-        dd($guestCartId);
         //if no guest cart found, return
         if ($guestCartId == 0) return;
         //Get guest cart
@@ -53,10 +52,12 @@ class LogSuccessfulLogin
         //Get old active cart if it exists
         $oldCart = Cart::where([
             ['customer_id', '=', $user->id],
-            ['is_active', '=', false]
+            ['is_active', '=', true]
         ])->first();
         //if user has no old active cart, return
         if ($oldCart === null) return;
+
+        dd($guestCartId);
 
         //Merge carts
         $newItems = $guestCart->items();

@@ -7,6 +7,7 @@ use App\Item;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
 
 class LogSuccessfulLogin
 {
@@ -43,6 +44,7 @@ class LogSuccessfulLogin
      */
     private function resolveCart($user)
     {
+        Log::info(__METHOD__);
         //Get active guest cart id from session if it exists
         $guestCartId = (int) session('cart_id');
         //if no guest cart found, return
@@ -64,14 +66,14 @@ class LogSuccessfulLogin
             session(['cart_id' => null]);
             return;
         }
-        //dd($guestCartId);
+        Log::info('1');
         foreach ($newItems as $newItem) {
             //get or create item and add product
             $item = Item::firstOrCreate([
                 'product_id' => $newItem->product_id,
                 'cart_id' => $oldCart->id
             ]);
-
+            Log::info('item found or created');
             //add or update qty and cost        
             $item->qty = (int) $item->qty + 1;
             $item->cost = $item->qty * $item->product()->price;
@@ -80,6 +82,7 @@ class LogSuccessfulLogin
             $item->save();
         }
 
+        Log::info('saving cart');
         //collect totals and save
         $oldCart->collectTotals()->save();
         //delete guest cart

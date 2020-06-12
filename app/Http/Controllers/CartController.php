@@ -112,9 +112,11 @@ class CartController extends Controller
             $rate = Rate::latest()->first();
             $usdTotal = (float) $rate->eurtousd * (float) $cart->total;
             $total = '€ ' . number_format($cart->total, 2) . ' |  $ ' . number_format($usdTotal, 2);
+            $delivery = '€ ' . number_format(2, 2) . ' |  $ ' . number_format(2 * (float) $rate->eurtousd, 2);
             return view('cart.show', [
                 'cart' => $cart,
-                'total' => $total
+                'total' => $total,
+                'delivery' => $delivery
             ]);
         } catch (\Exception $e) {
             Log::error($e->getMessage() . "\n" . $e->getTraceAsString());

@@ -32,8 +32,11 @@
                                                     $usdTotal = (float) $rate * (float) $cart->total;
                                                     $total = '€ ' . number_format($cart->total, 2) . ' | $ ' .
                                                     number_format($usdTotal, 2);
+                                                    $delivery = '€ ' . number_format(2, 2) . ' | $ ' .
+                                                    number_format(2 * (float)$rate, 2);
                                                     @endphp
-                                                    {{$total}}
+                                                    total: {{$total}}<br>
+                                                    delivery: {{$delivery}}
                                                 </p>
                                             </div>
                                         </div>

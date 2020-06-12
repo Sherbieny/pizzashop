@@ -8,10 +8,10 @@
                 <div class="card-header text-center">
                     @if($cart->qty > 0)
                     @if($cart->is_active)
-                    <span>Your cart has {{$cart->qty}} items with a total of {{$total}}
+                    <span>Your cart has {{$cart->qty}} items with a total of {{$total}} plus {{$delivery}} delivery
                     </span><br>
                     @else
-                    <span>Your order has {{$cart->qty}} items with a total of {{$total}}
+                    <span>Your order has {{$cart->qty}} items with a total of {{$total}} plus {{$delivery}} delivery
                     </span><br>
                     <span>
                         <strong>Address:</strong>

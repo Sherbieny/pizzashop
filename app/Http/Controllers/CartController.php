@@ -9,6 +9,7 @@ use App\Rate;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -53,31 +54,36 @@ class CartController extends Controller
      */
     public function add($productId)
     {
-        //Get the product
-        $product = Product::findOrFail($productId);
-        //Get cart
-        $cart = $this->getCart();
+        try {
+            //Get the product
+            $product = Product::findOrFail($productId);
+            //Get cart
+            $cart = $this->getCart();
 
-        //get or create item and add product
-        $item = Item::firstOrCreate([
-            'product_id' => $productId,
-            'cart_id' => $cart->id
-        ]);
+            //get or create item and add product
+            $item = Item::firstOrCreate([
+                'product_id' => $productId,
+                'cart_id' => $cart->id
+            ]);
 
-        //add or update qty and cost        
-        $item->qty = (int) $item->qty + 1;
-        $item->cost = $item->qty * $product->price;
+            //add or update qty and cost        
+            $item->qty = (int) $item->qty + 1;
+            $item->cost = $item->qty * $product->price;
 
-        //save item
-        $item->save();
+            //save item
+            $item->save();
 
-        //collect totals and save
-        $cart->collectTotals()->save();
+            //collect totals and save
+            $cart->collectTotals()->save();
 
-        //update session cart item count to view in frontend        
-        session(['item_count' => $cart->qty]);
+            //update session cart item count to view in frontend        
+            session(['item_count' => $cart->qty]);
 
-        return back()->with('success', 'Product added to cart');
+            return back()->with('success', 'Product added to cart');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . "\n" . $e->getTraceAsString());
+            return redirect()->route('product')->with('error', 'Failed to add product');
+        }
     }
 
     /**
@@ -88,27 +94,32 @@ class CartController extends Controller
      */
     public function show($cartId)
     {
-        $cart = Cart::findOrFail($cartId);
+        try {
+            $cart = Cart::findOrFail($cartId);
 
-        if (Auth::guest() === false) {
-            //check if user has access to cart
-            if (Auth::id() != $cart->customer_id) {
-                return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
+            if (Auth::guest() === false) {
+                //check if user has access to cart
+                if (Auth::id() != $cart->customer_id) {
+                    return redirect()->route('product')->with('error', 'You have no access to this cart history');
+                }
+            } else {
+                //if not logged in, check if cart is the active cart in session
+                if ($cart->is_active === false) {
+                    return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
+                }
             }
-        } else {
-            //if not logged in, check if cart is the active cart in session
-            if ($cart->is_active === false) {
-                return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
-            }
+
+            $rate = Rate::latest()->first();
+            $usdTotal = (float) $rate->eurtousd * (float) $cart->total;
+            $total = '€ ' . number_format($cart->total, 2) . ' |  $ ' . number_format($usdTotal, 2);
+            return view('cart.show', [
+                'cart' => $cart,
+                'total' => $total
+            ]);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . "\n" . $e->getTraceAsString());
+            return redirect()->route('product')->with('error', 'The was a problem in opening order history');
         }
-
-        $rate = Rate::latest()->first();
-        $usdTotal = (float) $rate->eurtousd * (float) $cart->total;
-        $total = '€ ' . number_format($cart->total, 2) . ' |  $ ' . number_format($usdTotal, 2);
-        return view('cart.show', [
-            'cart' => $cart,
-            'total' => $total
-        ]);
     }
 
     /**
@@ -119,19 +130,24 @@ class CartController extends Controller
      */
     public function remove($itemId)
     {
-        //Get the cart
-        $cart = $this->getCart();
-        //get item
-        $item = Item::findOrFail($itemId);
-        //delete item
-        $item->delete();
-        //collect totals and save
-        $cart->collectTotals()->save();
+        try {
+            //Get the cart
+            $cart = $this->getCart();
+            //get item
+            $item = Item::findOrFail($itemId);
+            //delete item
+            $item->delete();
+            //collect totals and save
+            $cart->collectTotals()->save();
 
-        //update session cart item count to view in frontend        
-        session(['item_count' => $cart->qty]);
+            //update session cart item count to view in frontend        
+            session(['item_count' => $cart->qty]);
 
-        return back()->with('success', 'Product removed from cart');
+            return back()->with('success', 'Product removed from cart');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . "\n" . $e->getTraceAsString());
+            return redirect()->route('product')->with('error', 'Failed to remove product');
+        }
     }
 
     /**
@@ -143,6 +159,7 @@ class CartController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
+
         $this->validate($request, [
             'email' => 'required',
             'first_name' => 'required',
@@ -150,17 +167,22 @@ class CartController extends Controller
             'address' => 'required'
         ]);
 
-        $cart->customer_email = $request->input('email');
-        $cart->customer_firstname = $request->input('email');
-        $cart->customer_lastname = $request->input('first_name');
-        $cart->address = $request->input('address');
-        //disable cart so it wont get called again after order is placed
-        $cart->is_active = false;
-        $cart->save();
-        //remove current cart from session to create new one for new requests
-        session(['cart_id' => null]);
+        try {
+            $cart->customer_email = $request->input('email');
+            $cart->customer_firstname = $request->input('email');
+            $cart->customer_lastname = $request->input('first_name');
+            $cart->address = $request->input('address');
+            //disable cart so it wont get called again after order is placed
+            $cart->is_active = false;
+            $cart->save();
+            //remove current cart from session to create new one for new requests
+            session(['cart_id' => null]);
 
-        return redirect()->route('product')->with('success', 'Order placed .. Thank you!');
+            return redirect()->route('product')->with('success', 'Order placed .. Thank you!');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . "\n" . $e->getTraceAsString());
+            return redirect()->route('product')->with('error', 'Failed to update cart');
+        }
     }
 
     /**

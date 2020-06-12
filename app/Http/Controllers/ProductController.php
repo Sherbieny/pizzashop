@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -14,10 +15,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('id', '>', 0)->orderBy('updated_at', 'desc')->paginate(10);
-        return view('products.index', [
-            'products' => $products
-        ]);
+        try {
+            $products = Product::where('id', '>', 0)->orderBy('updated_at', 'desc')->paginate(10);
+            return view('products.index', [
+                'products' => $products
+            ]);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . "\n" . $e->getTraceAsString());
+            return view('home')->with('error', 'Failed to open menu page');
+        }
     }
 
     /**
@@ -49,8 +55,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::findOrFail($id);
-        return view('products.show')->with('product', $product);
+
+        try {
+            $product = Product::findOrFail($id);
+            return view('products.show')->with('product', $product);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . "\n" . $e->getTraceAsString());
+            return view('products.index')->with('error', 'Failed to open product');
+        }
     }
 
     /**

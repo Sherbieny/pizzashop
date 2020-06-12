@@ -24,11 +24,11 @@
                 <!-- Authentication Links -->
                 @guest
                 <li class="nav-item">
-                    <a class="btn btn-dark" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                 </li>
                 @if (Route::has('register'))
                 <li class="nav-item">
-                    <a class="btn btn-dark" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                 </li>
                 @endif
                 @else
@@ -53,7 +53,7 @@
                 @endguest
                 @if (session('cart_id') != null)
                 <li class="nav-item">
-                    <a class="badge badge-dark" href="/cart/{{session('cart_id')}}">{{ __('Cart ') }}
+                    <a class="btn btn-dark" href="/cart/{{session('cart_id')}}">{{ __('Cart ') }}
                         <span class="badge badge-light">{{session('item_count')}}</span>
                     </a>
                 </li>

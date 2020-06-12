@@ -7,14 +7,17 @@
             <div class="card">
                 <div class="card-header text-center">
                     @if($cart->qty > 0)
+                    @if($cart->is_active)
                     <span>Your cart has {{$cart->qty}} items with a total of {{$total}}
                     </span><br>
-                    @if($cart->is_active === false)
+                    @else
+                    <span>Your order has {{$cart->qty}} items with a total of {{$total}}
+                    </span><br>
+                    @endif
                     <span>
                         <strong>Address:</strong>
                         {{$cart->address}}
                     </span>
-                    @endif
                     @endif
                 </div>
                 <div class="card-body">

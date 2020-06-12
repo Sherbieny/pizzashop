@@ -32,6 +32,9 @@
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12">
                                                 <p>
+                                                    <strong>{{$product->description}}</strong>
+                                                </p>
+                                                <p>
                                                     <strong>Price:</strong>
                                                     {{$product->price}}
                                                 </p>

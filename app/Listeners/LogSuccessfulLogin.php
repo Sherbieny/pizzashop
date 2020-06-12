@@ -44,7 +44,6 @@ class LogSuccessfulLogin
      */
     private function resolveCart($user)
     {
-        Log::info(__METHOD__);
         //Get active guest cart id from session if it exists
         $guestCartId = (int) session('cart_id');
         //if no guest cart found, return
@@ -63,18 +62,15 @@ class LogSuccessfulLogin
         $newItems = $guestCart->items;
         //if guest cart is empty, remove it from session to load old cart on next add to cart
         if (empty($newItems)) {
-            Log::info('cart is empty');
             session(['cart_id' => null]);
             return;
         }
-        Log::info('1');
         foreach ($newItems as $newItem) {
             //get or create item and add product
             $item = Item::firstOrCreate([
                 'product_id' => $newItem->product_id,
                 'cart_id' => $oldCart->id
             ]);
-            Log::info('item found or created');
             //add or update qty and cost        
             $item->qty = (int) $item->qty + 1;
             $item->cost = $item->qty * $item->product->price;
@@ -83,7 +79,6 @@ class LogSuccessfulLogin
             $item->save();
         }
 
-        Log::info('saving cart');
         //collect totals and save
         $oldCart->collectTotals()->save();
         //delete guest cart
@@ -91,6 +86,6 @@ class LogSuccessfulLogin
         //add old cart id to session
         session(['cart_id' => $oldCart->id]);
         //update cart count
-        session(['item_count' => $oldCart->count]);
+        session(['item_count' => $oldCart->qty]);
     }
 }

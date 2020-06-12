@@ -95,11 +95,11 @@
                                         <a data-toggle="collapse" data-target="#collapse" href="#" style="width: 100%"
                                             class="btn btn-primary btn-block">Place Order</a>
                                     </div>
-                                    <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12 col-sm-12 mt-1">
                                         <div class="panel-group">
                                             <div class="panel panel-default">
                                                 <div id="collapse" class="panel-collapse collapse">
-                                                    <h4>Please fill the form to submit your order</h4>
+                                                    <h5>Please fill the form to submit your order</h5>
                                                     {!! Form::open(['action' => ['CartController@update', $cart],
                                                     'method' =>
                                                     'post']) !!}

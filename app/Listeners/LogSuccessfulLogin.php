@@ -60,9 +60,10 @@ class LogSuccessfulLogin
         if ($oldCart === null) return;
 
         //Merge carts
-        $newItems = $guestCart->items();
+        $newItems = $guestCart->getItems();
         //if guest cart is empty, remove it from session to load old cart on next add to cart
         if (empty($newItems)) {
+            Log::info('cart is empty');
             session(['cart_id' => null]);
             return;
         }

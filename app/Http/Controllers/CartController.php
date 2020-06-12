@@ -95,6 +95,11 @@ class CartController extends Controller
             if (Auth::id() != $cart->customer_id) {
                 return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
             }
+        } else {
+            //if not logged in, check if cart is the active cart in session
+            if ($cart->is_active === false) {
+                return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
+            }
         }
 
         $rate = Rate::latest()->first();

@@ -95,28 +95,30 @@
                                         <a data-toggle="collapse" data-target="#collapse" href="#" style="width: 100%"
                                             class="btn btn-primary btn-block">Place Order</a>
                                     </div>
-                                    <div class="panel-group">
-                                        <div class="panel panel-default">
-                                            <div id="collapse" class="panel-collapse collapse">
-                                                <h4>Please fill the form to submit your order</h4>
-                                                {!! Form::open(['action' => ['CartController@update', $cart],
-                                                'method' =>
-                                                'post']) !!}
-                                                <div class="form-group">
-                                                    {{Form::email('email', $value = $cart->customer_email ?? '', ['class' => 'form-control','placeholder' => 'email', 'required', $cart->customer_email ? 'readonly': ''])}}
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="panel-group">
+                                            <div class="panel panel-default">
+                                                <div id="collapse" class="panel-collapse collapse">
+                                                    <h4>Please fill the form to submit your order</h4>
+                                                    {!! Form::open(['action' => ['CartController@update', $cart],
+                                                    'method' =>
+                                                    'post']) !!}
+                                                    <div class="form-group">
+                                                        {{Form::email('email', $value = $cart->customer_email ?? '', ['class' => 'form-control','placeholder' => 'email', 'required', $cart->customer_email ? 'readonly': ''])}}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{Form::text('first_name', $value = $cart->customer_firstname ?? '', ['class' => 'form-control','placeholder' => 'first name', 'required'])}}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{Form::text('last_name', $value = $cart->customer_lastname ?? '', ['class' => 'form-control','placeholder' => 'last name', 'required'])}}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{Form::text('address', $value = $cart->address ?? '', ['class' => 'form-control','placeholder' => 'addresss', 'required'])}}
+                                                    </div>
+                                                    {{Form::hidden('_method','PUT')}}
+                                                    {{Form::submit('Submit',['class' => 'btn btn-primary'])}}
+                                                    {!! Form::close() !!}
                                                 </div>
-                                                <div class="form-group">
-                                                    {{Form::text('first_name', $value = $cart->customer_firstname ?? '', ['class' => 'form-control','placeholder' => 'first name', 'required'])}}
-                                                </div>
-                                                <div class="form-group">
-                                                    {{Form::text('last_name', $value = $cart->customer_lastname ?? '', ['class' => 'form-control','placeholder' => 'last name', 'required'])}}
-                                                </div>
-                                                <div class="form-group">
-                                                    {{Form::text('address', $value = $cart->address ?? '', ['class' => 'form-control','placeholder' => 'addresss', 'required'])}}
-                                                </div>
-                                                {{Form::hidden('_method','PUT')}}
-                                                {{Form::submit('Submit',['class' => 'btn btn-primary'])}}
-                                                {!! Form::close() !!}
                                             </div>
                                         </div>
                                     </div>

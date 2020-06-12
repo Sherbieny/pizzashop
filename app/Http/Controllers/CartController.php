@@ -89,6 +89,14 @@ class CartController extends Controller
     public function show($cartId)
     {
         $cart = Cart::findOrFail($cartId);
+
+        if (Auth::guest() === false) {
+            //check if user has access to cart
+            if (Auth::id() != $cart->customer_id) {
+                return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
+            }
+        }
+
         $rate = Rate::latest()->first();
         $usdTotal = (float) $rate->eurtousd * (float) $cart->total;
         $total = '€ ' . number_format($cart->total, 2) . ' |  $ ' . number_format($usdTotal, 2);

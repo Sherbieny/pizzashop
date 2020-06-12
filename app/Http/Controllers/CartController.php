@@ -174,6 +174,24 @@ class CartController extends Controller
         $user = Auth::guest() === false ? User::findOrFail(Auth::id()) : null;
         //Get or create cart
         $cart = ($cartId > 0) ? Cart::findOrFail($cartId) : new Cart();
+        if ($cartId > 0) {
+            $cart = Cart::findOrFail($cartId);
+        } else {
+            //Get old active cart if it exists, else create new
+            if ($user) {
+                $cart = Cart::where([
+                    ['customer_id', '=', $user->id],
+                    ['is_active', '=', false]
+                ])->first();
+                if ($cart === null) {
+                    $cart = new Cart();
+                }
+            }
+            //If guest and not cart in session, create new
+            else {
+                $cart = new Cart();
+            }
+        }
         //determine if cart is new
         $newCart = $cart->id === null;
         //if new cart, and user is logged in add user info and update session
@@ -185,14 +203,13 @@ class CartController extends Controller
             $cart->customer_lastname = count($customerNames) > 1 ? $customerNames[1] : null;
             //save cart to properly populate it with items
             $cart->save();
-            //update session with cart id if new cart is created
-            session(['cart_id' => $cart->id]);
         } elseif ($newCart && !$user) {
             //save cart to properly populate it with items
             $cart->save();
-            //update session with cart id if new cart is created
-            session(['cart_id' => $cart->id]);
         }
+
+        //update session with cart id if it does not exist
+        if ($cartId == 0) session(['cart_id' => $cart->id]);
 
         return $cart;
     }

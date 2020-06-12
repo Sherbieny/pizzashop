@@ -18,7 +18,7 @@
                     @else
                     You are logged in!
                     @endguest
-
+                    <br>
                     <a class="btn btn-primary" href="{{ url('product') }}">{{ __('Go to Menu') }}</a>
                 </div>
             </div>

@@ -57,12 +57,14 @@ class LogSuccessfulLogin
         //if user has no old active cart, return
         if ($oldCart === null) return;
 
-        dd($guestCartId);
-
         //Merge carts
         $newItems = $guestCart->items();
-        if (empty($newItems)) return;
-
+        //if guest cart is empty, remove it from session to load old cart on next add to cart
+        if (empty($newItems)) {
+            session(['cart_id' => null]);
+            return;
+        }
+        //dd($guestCartId);
         foreach ($newItems as $newItem) {
             //get or create item and add product
             $item = Item::firstOrCreate([

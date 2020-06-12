@@ -53,8 +53,8 @@
                 @endguest
                 @if (session('cart_id') != null)
                 <li class="nav-item">
-                    <a class="nav-link" href="/cart/{{session('cart_id')}}">{{ __('Cart ') }}
-                        <span class="badge badge-dark">{{session('item_count')}}</span>
+                    <a class="badge badge-pill badge-dark" href="/cart/{{session('cart_id')}}">{{ __('Cart ') }}
+                        <span class="badge badge-light">{{session('item_count')}}</span>
                     </a>
                 </li>
                 @endif

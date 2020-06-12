@@ -29,7 +29,6 @@ class LogSuccessfulLogin
     public function handle(Login $event)
     {
         $user = $event->user;
-        dd($user);
         $this->resolveCart($user);
     }
 
@@ -46,6 +45,7 @@ class LogSuccessfulLogin
     {
         //Get active guest cart id from session if it exists
         $guestCartId = (int) session('cart_id');
+        dd($guestCartId);
         //if no guest cart found, return
         if ($guestCartId == 0) return;
         //Get guest cart

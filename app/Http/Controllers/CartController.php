@@ -173,7 +173,6 @@ class CartController extends Controller
         //Get user if logged in
         $user = Auth::guest() === false ? User::findOrFail(Auth::id()) : null;
         //Get or create cart
-        $cart = ($cartId > 0) ? Cart::findOrFail($cartId) : new Cart();
         if ($cartId > 0) {
             $cart = Cart::findOrFail($cartId);
         } else {
@@ -181,7 +180,7 @@ class CartController extends Controller
             if ($user) {
                 $cart = Cart::where([
                     ['customer_id', '=', $user->id],
-                    ['is_active', '=', false]
+                    ['is_active', '=', true]
                 ])->first();
                 if ($cart === null) {
                     $cart = new Cart();

@@ -29,6 +29,7 @@ class LogSuccessfulLogin
     public function handle(Login $event)
     {
         $user = $event->user;
+        dd($user);
         $this->resolveCart($user);
     }
 

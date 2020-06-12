@@ -69,6 +69,12 @@ class LogSuccessfulLogin
             //save cart to properly populate it with items
             $guestCart->save();
             return;
+        } else {
+            //if old cart exists, it should be assigned to session if it has items
+            if ($oldCart->qty > 0) {
+                session(['cart_id' => $oldCart->id]);
+                session(['item_count' => $oldCart->qty]);
+            }
         }
         Log::info('old cart loaded');
 

@@ -61,7 +61,7 @@ class ProductController extends Controller
             return view('products.show')->with('product', $product);
         } catch (\Exception $e) {
             Log::error($e->getMessage() . "\n" . $e->getTraceAsString());
-            return view('products.index')->with('error', 'Failed to open product');
+            return view('home')->with('error', 'Failed to open product');
         }
     }
 

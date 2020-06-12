@@ -21,18 +21,23 @@ class CartController extends Controller
      */
     public function index()
     {
-        if (Auth::guest() === false) {
-            $carts = Cart::where([
-                ['customer_id', '=', Auth::user()->id],
-                ['is_active', '=', false]
-            ])->orderBy('updated_at', 'desc')->paginate(10);
-            $rate = Rate::latest()->first();
-            return view('cart.index', [
-                'carts' => $carts,
-                'rate' => $rate->eurtousd
-            ]);
-        } else {
-            return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
+        try {
+            if (Auth::guest() === false) {
+                $carts = Cart::where([
+                    ['customer_id', '=', Auth::user()->id],
+                    ['is_active', '=', false]
+                ])->orderBy('updated_at', 'desc')->paginate(10);
+                $rate = Rate::latest()->first();
+                return view('cart.index', [
+                    'carts' => $carts,
+                    'rate' => $rate->eurtousd
+                ]);
+            } else {
+                return redirect()->route('product')->with('error', 'You have no access to order history .. please register');
+            }
+        } catch (\Exception $e) {
+            Log::error($e->getMessage() . "\n" . $e->getTraceAsString());
+            return redirect()->route('product')->with('error', 'Failed to open cart');
         }
     }
 

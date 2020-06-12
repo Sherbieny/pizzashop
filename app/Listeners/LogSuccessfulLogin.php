@@ -59,8 +59,17 @@ class LogSuccessfulLogin
             ['is_active', '=', true]
         ])->first();
         Log::info('loading old cart');
-        //if user has no old active cart, return
-        if ($oldCart === null) return;
+        //if user has no old active cart, set customer info and return
+        if ($oldCart === null) {
+            $guestCart->customer_id = $user->id;
+            $guestCart->customer_email = $user->email;
+            $customerNames = explode(' ', $user->name) !== false ? explode(' ', $user->name) : [];
+            $guestCart->customer_firstname = !empty($customerNames) ? $customerNames[0] : null;
+            $guestCart->customer_lastname = count($customerNames) > 1 ? $customerNames[1] : null;
+            //save cart to properly populate it with items
+            $guestCart->save();
+            return;
+        }
         Log::info('old cart loaded');
 
         //Merge carts

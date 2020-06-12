@@ -48,16 +48,28 @@ class LogSuccessfulLogin
         //Get active guest cart id from session if it exists
         $guestCartId = (int) session('cart_id');
         Log::info('getting guest cart id from session = ' . $guestCartId);
-        //if no guest cart found, return
-        if ($guestCartId == 0) return;
-        //Get guest cart
-        $guestCart = Cart::findOrFail($guestCartId);
-        Log::info('guest cart loaded');
+        Log::info('user id = ' . $user->id);
         //Get old active cart if it exists
         $oldCart = Cart::where([
             ['customer_id', '=', $user->id],
             ['is_active', '=', true]
         ])->first();
+        Log::info('checking if old cart is not null');
+        if ($oldCart !== null) {
+            Log::info('old cart exists');
+            //if old cart exists, it should be assigned to session if it has items
+            if ($oldCart->qty > 0) {
+                Log::info('setting old cart data');
+                session(['cart_id' => $oldCart->id]);
+                session(['item_count' => $oldCart->qty]);
+            }
+        }
+        //if no guest cart found, return
+        if ($guestCartId == 0) return;
+        //Get guest cart
+        $guestCart = Cart::findOrFail($guestCartId);
+        Log::info('guest cart loaded');
+
         Log::info('loading old cart');
         //if user has no old active cart, set customer info and return
         if ($oldCart === null) {
@@ -69,14 +81,6 @@ class LogSuccessfulLogin
             //save cart to properly populate it with items
             $guestCart->save();
             return;
-        } else {
-            Log::info('old cart exists');
-            //if old cart exists, it should be assigned to session if it has items
-            if ($oldCart->qty > 0) {
-                Log::info('setting old cart data');
-                session(['cart_id' => $oldCart->id]);
-                session(['item_count' => $oldCart->qty]);
-            }
         }
         Log::info('old cart loaded');
 

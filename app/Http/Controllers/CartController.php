@@ -241,8 +241,12 @@ class CartController extends Controller
             $cart->customer_id = $user->id;
             $cart->customer_email = $user->email;
             $customerNames = explode(" ", $user->name) !== false ? explode(" ", $user->name) : [];
+            Log::info('names = ');
+            Log::info(print_r($customerNames, true));
             $cart->customer_firstname = array_shift($customerNames);
+            Log::info(print_r($customerNames, true));
             $cart->customer_lastname = !empty($customerNames) ? implode(" ", $customerNames) : null;
+            Log::info($cart->customer_lastname);
             //save cart to properly populate it with items
             $cart->save();
         } elseif ($newCart && !$user) {

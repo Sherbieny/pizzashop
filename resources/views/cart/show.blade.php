@@ -107,7 +107,7 @@
                                                     'method' =>
                                                     'post']) !!}
                                                     <div class="form-group">
-                                                        {{Form::email('email', $value = $cart->customer_email ?? '', ['class' => 'form-control','placeholder' => 'email','pattern'='[^@]+@[^@.]+\.[^@]+' ,'required', $cart->customer_email ? 'readonly': ''])}}
+                                                        {{Form::email('email', $value = $cart->customer_email ?? '', ['class' => 'form-control','placeholder' => 'email','pattern' => '[^@]+@[^@.]+\.[^@]+' ,'required', $cart->customer_email ? 'readonly': ''])}}
                                                     </div>
                                                     <div class="form-group">
                                                         {{Form::text('first_name', $value = $cart->customer_firstname ?? '', ['class' => 'form-control','placeholder' => 'first name', 'required'])}}

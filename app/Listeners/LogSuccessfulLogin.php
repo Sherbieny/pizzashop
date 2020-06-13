@@ -67,9 +67,9 @@ class LogSuccessfulLogin
         if ($oldCart === null) {
             $guestCart->customer_id = $user->id;
             $guestCart->customer_email = $user->email;
-            $customerNames = explode(' ', $user->name) !== false ? explode(' ', $user->name) : [];
-            $guestCart->customer_firstname = !empty($customerNames) ? $customerNames[0] : null;
-            $guestCart->customer_lastname = count($customerNames) > 1 ? $customerNames[1] : null;
+            $customerNames = explode(" ", $user->name) !== false ? explode(" ", $user->name) : [];
+            $guestCart->customer_firstname = array_shift($customerNames);
+            $guestCart->customer_lastname = !empty($customerNames) ? implode(" ", $customerNames) : null;
             //save cart to properly populate it with items
             $guestCart->save();
             return;

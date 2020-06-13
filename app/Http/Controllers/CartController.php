@@ -177,8 +177,8 @@ class CartController extends Controller
 
         try {
             $cart->customer_email = $request->input('email');
-            $cart->customer_firstname = $request->input('email');
-            $cart->customer_lastname = $request->input('first_name');
+            $cart->customer_firstname = $request->input('first_name');
+            $cart->customer_lastname = $request->input('last_name');
             $cart->address = $request->input('address');
             //disable cart so it wont get called again after order is placed
             $cart->is_active = false;
@@ -240,9 +240,9 @@ class CartController extends Controller
         if ($newCart && $user) {
             $cart->customer_id = $user->id;
             $cart->customer_email = $user->email;
-            $customerNames = explode(' ', $user->name) !== false ? explode(' ', $user->name) : [];
-            $cart->customer_firstname = !empty($customerNames) ? $customerNames[0] : null;
-            $cart->customer_lastname = count($customerNames) > 1 ? $customerNames[1] : null;
+            $customerNames = explode(" ", $user->name) !== false ? explode(" ", $user->name) : [];
+            $cart->customer_firstname = array_shift($customerNames);
+            $cart->customer_lastname = !empty($customerNames) ? implode(" ", $customerNames) : null;
             //save cart to properly populate it with items
             $cart->save();
         } elseif ($newCart && !$user) {

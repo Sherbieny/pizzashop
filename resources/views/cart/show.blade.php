@@ -116,7 +116,7 @@
                                                         {{Form::text('last_name', $value = $cart->customer_lastname ?? '', ['class' => 'form-control','placeholder' => 'last name', 'required'])}}
                                                     </div>
                                                     <div class="form-group">
-                                                        {{Form::text('address', $value = $cart->address ?? '', ['class' => 'form-control','placeholder' => 'addresss', 'required'])}}
+                                                        {{Form::text('address', $value = $cart->address ?? '', ['class' => 'form-control','placeholder' => 'address', 'required'])}}
                                                     </div>
                                                     {{Form::hidden('_method','PUT')}}
                                                     {{Form::submit('Submit',['class' => 'btn btn-primary'])}}

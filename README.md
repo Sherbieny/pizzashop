@@ -13,11 +13,16 @@ Pizzashop is simple e-shop created with Laravel web application framework
 
 #### Features
 - Basic cart logic (add/remove)
+- Cart totals calculation
 - User authentication (login/registration)
 - Loggedin and guest cart
-- Carts merge for guest login
-- Totals conversion from EUR to USD
+- Carts merge if a guest logs in
+- Totals conversion from EUR to USD using real conversion rates that is updated daily
 - Order history for logged in users
+
+#### Events
+- User Login: app/Listeners/LogSuccessfulLogin
+- User logout: app/Listeners/LogSuccessfulLogout
 
 #### Links
 - Website: https://limitless-forest-72332.herokuapp.com/

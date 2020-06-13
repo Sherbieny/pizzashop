@@ -22,6 +22,7 @@ class CartController extends Controller
     public function index()
     {
         try {
+            //if user is logged in, load order history
             if (Auth::guest() === false) {
                 $carts = Cart::where([
                     ['customer_id', '=', Auth::user()->id],
@@ -37,7 +38,7 @@ class CartController extends Controller
             }
         } catch (\Exception $e) {
             Log::error($e->getMessage() . "\n" . $e->getTraceAsString());
-            return redirect()->route('product')->with('error', 'Failed to open cart');
+            return redirect()->route('product')->with('error', 'Failed to open order history');
         }
     }
 

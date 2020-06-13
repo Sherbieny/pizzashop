@@ -68,12 +68,8 @@ class LogSuccessfulLogin
             $guestCart->customer_id = $user->id;
             $guestCart->customer_email = $user->email;
             $customerNames = explode(" ", $user->name) !== false ? explode(" ", $user->name) : [];
-            Log::info('names = ');
-            Log::info(print_r($customerNames, true));
             $guestCart->customer_firstname = array_shift($customerNames);
-            Log::info(print_r($customerNames, true));
             $guestCart->customer_lastname = !empty($customerNames) ? implode(" ", $customerNames) : null;
-            Log::info($guestCart->customer_lastname);
             //save cart to properly populate it with items
             $guestCart->save();
             return;

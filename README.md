@@ -3,7 +3,7 @@ Pizzashop is simple e-shop created with Laravel web application framework
 
 #### Tools used
 
-- Laravel 7
+- Laravel 7.2.5
 - VS code
 - [Currencyconverterapi](https://www.currencyconverterapi.com/)
 - [Heroku](https://www.heroku.com/)
@@ -14,11 +14,13 @@ Pizzashop is simple e-shop created with Laravel web application framework
 #### Features
 - Basic cart logic (add/remove)
 - Cart totals calculation
+- Menu page with sample products
+- Details page for each product
 - User authentication (login/registration)
 - Loggedin and guest cart
 - Carts merge if a guest logs in
 - Totals conversion from EUR to USD using real conversion rates that is updated daily
-- Order history for logged in users
+- Orders history for logged in users
 
 #### Events
 - User Login: app/Listeners/LogSuccessfulLogin
